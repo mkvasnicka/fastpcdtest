@@ -14,6 +14,7 @@
 #'
 #' @docType package
 #' @name fastpcdtest
+#' @useDynLib fastpcdtest
 NULL
 
 
@@ -61,8 +62,8 @@ pcdtest <- function(mod, index = NULL, min_common = 2L){
     stop("Minimal number of common observations for any pair of individuals must be integer higher than one!")
   # require what is needed
   require(plm)
-  require(tidyr)
-  require(dplyr)
+#   require(tidyr)
+#   require(dplyr)
   require(magrittr)
   # create the matrix of residuals
   if("plm" %in% class(mod)){
@@ -120,4 +121,8 @@ pcdtest <- function(mod, index = NULL, min_common = 2L){
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage("Welcome to fastpcdtest package.",
                         "Jak citovat.")
+}
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("fastpcdtest", libpath)
 }
