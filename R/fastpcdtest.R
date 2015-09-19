@@ -6,11 +6,11 @@
 #' 2) when the panel is highly unbalanced (since is calculates CD test even when
 #' some observations do not have overlap in their time dimension).
 #'
+#' @section fastpcdtest functions:
 #' The package provides only one function, \code{pcdtest}, which overshadows
-#' the test of the same name in \bold{plm} package.
-#'
-#' @section Foo functions:
-#' The foo functions ...
+#' the test of the same name in \bold{plm} package. However, internally, there are
+#' two Rcpp functions, one for balanced panels and other for unbalanced panels.
+#' R wrapper function \code{pcdtest} automatically selects the proper function.
 #'
 #' @docType package
 #' @name fastpcdtest
