@@ -5,7 +5,4 @@ src/*.o
 src/*.so
 src/*.dll
 inst/doc
-NAMESPACE
-man
-vignettes/*.R
-vignettes/*.html
+
