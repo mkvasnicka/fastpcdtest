@@ -1,4 +1,4 @@
-#' fastpcdtest: A package for fast calculation of Pesaran's CD test.
+#' fastpcdtest: A package for fast and robust calculation of Pesaran's CD test.
 #'
 #' The fastpcdtest package calculates Pesaran's CD test. It substitutes
 #' for pcdtest in plm package in two situations:
