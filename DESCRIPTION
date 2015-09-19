@@ -1,0 +1,18 @@
+Package: fastpcdtest
+Type: Package
+Title: Calculate Pesaran's CD Test.
+Version: 0.0.0.9000
+Date: 2015-09-19
+Authors@R: person("Michal", "Kvasnicka", email = "qasar@econ.muni.cz",
+                  role = c("aut", "cre"))
+Description: The fastpcdtest package calculates Pesaran's CD test. It substitutes
+  for pcdtest in plm package in two situations:
+  1) when the panel is huges (since it is faster than pcdtest in plm package) and
+  2) when the panel is highly unbalanced (since is calculates CD test even when
+  some observations do not have overlap in their time dimension).
+License: What license is it under?
+LazyData: TRUE
+Imports:
+    Rcpp (>= 0.12.1)
+LinkingTo:
+    Rcpp
