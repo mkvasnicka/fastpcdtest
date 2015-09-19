@@ -12,9 +12,11 @@ Description: A package for fast and robust calculation of Pesaran's CD test. It 
   some observations do not have overlap in their time dimension).
 License: What license is it under?
 LazyData: TRUE
-Imports: 
-    Rcpp (>= 0.12.1)
-LinkingTo: 
+Imports:
+    Rcpp (>= 0.12.1),
+    tidyr (>= 0.3.1),
+    dplyr (>= 0.4.3)
+LinkingTo:
     Rcpp
 Suggests: knitr,
     rmarkdown
