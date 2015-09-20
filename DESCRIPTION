@@ -12,7 +12,7 @@ Description: A package for fast and robust calculation of Pesaran's CD test. It 
   some observations do not have overlap in their time dimension).
 URL: http://github.com/mkvasnicka/fastpcdtest
 BugReports: http://github.com/mkvasnicka/fastpcdtest/issues
-License: What license is it under?
+License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.1),
