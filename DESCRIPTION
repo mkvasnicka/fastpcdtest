@@ -10,6 +10,8 @@ Description: A package for fast and robust calculation of Pesaran's CD test. It 
   1) when the panel is huges (since it is faster than pcdtest in plm package) and
   2) when the panel is highly unbalanced (since is calculates CD test even when
   some observations do not have overlap in their time dimension).
+URL: http://github.com/mkvasnicka/fastpcdtest
+BugReports: http://github.com/mkvasnicka/fastpcdtest/issues
 License: What license is it under?
 LazyData: TRUE
 Imports:
