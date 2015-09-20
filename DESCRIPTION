@@ -17,7 +17,8 @@ LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.1),
     tidyr (>= 0.3.1),
-    dplyr (>= 0.4.3)
+    dplyr (>= 0.4.3),
+    plm (>= 1.4)
 LinkingTo:
     Rcpp
 Suggests: knitr,

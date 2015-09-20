@@ -43,6 +43,7 @@ NULL
 #' @return Object of htest class with the results of the test.
 #' @examples
 #' #to be added
+#' @import plm
 #' @export
 pcdtest <- function(mod, index = NULL, min_common = 2L){
   # check the input
@@ -61,22 +62,26 @@ pcdtest <- function(mod, index = NULL, min_common = 2L){
   if(!(is.integer(min_common) & (min_common >= 1)))
     stop("Minimal number of common observations for any pair of individuals must be integer higher than one!")
   # require what is needed
-  require(plm)
-#   require(tidyr)
-#   require(dplyr)
-  require(magrittr)
+  # require(plm)
+  # require(tidyr)
+  # require(dplyr)
+  # require(magrittr)
   # create the matrix of residuals
   if("plm" %in% class(mod)){
     err  <- resid(mod)
     nerr <- length(err)
-    merr <- cbind(resid(mod) %>% attr(.,"index") %>% as.data.frame(),
-                  resid(mod)  %>% as.vector()) %>% magrittr::set_names(c("N","Tu","e"))
+    # merr <- cbind(resid(mod) %>% attr(.,"index") %>% as.data.frame(),
+    #               resid(mod)  %>% as.vector()) %>% magrittr::set_names(c("N","Tu","e"))
+    merr <- setNames(cbind(as.data.frame(attr(resid(mod), "index")),
+                           as.vector(resid(mod))), c("N","Tu","e"))
   }else{
-    merr <- mod[,index] %>% magrittr::set_names(c("N","Tu","e"))
+    # merr <- mod[,index] %>% magrittr::set_names(c("N","Tu","e"))
+    merr <- setNames(mod[, index], c("N","Tu","e"))
     nerr <- nrow(merr)
   }
-  merr <- merr %>% tidyr::spread(Tu,e,fill=NA) %>% dplyr::select(-N) %>%
-    as.matrix
+  # merr <- merr %>% tidyr::spread(Tu,e,fill=NA) %>% dplyr::select(-N) %>%
+  #   as.matrix
+  merr <- as.matrix(dplyr::select(tidyr::spread(merr, Tu, e, fill = NA), -N))
   # calculate CD and z stratistics
   if(prod(dim(merr))>nerr){
     # for unbalanced panel
