@@ -8,3 +8,6 @@ It substitutes `pcdtest` in **plm** package in two situations:
     some observations do not have overlap in their time dimension).
 
 The package provides only one function, `pcdtest`.
+
+Beware: this is just an alpha version. It may contain bugs and
+the interface may change.
