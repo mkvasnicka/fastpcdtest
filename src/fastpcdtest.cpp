@@ -74,7 +74,7 @@ NumericVector fastpcdtest_unbalanced_(NumericMatrix M, int min_common) {
     }
   }
   // add correction
-  CD = CD * sqrt(2.0 / (M.nrow() * (M.nrow() - 1) - invalid_cases));
+  CD = CD * sqrt(2.0 / (M.nrow() * (M.nrow() - 1) - 2 * invalid_cases));
   // return the result
   NumericVector result = NumericVector::create(CD, static_cast<double>(invalid_cases));
   return result;
