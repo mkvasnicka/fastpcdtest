@@ -37,6 +37,7 @@ struct corext {
 };
 
 corext quasi_correlation(NumericVector x, NumericVector y){
+  static bool TMPprint = true;
   // the fields that are non-NA in both vectors
   LogicalVector common = (!is_na(x)) * (!is_na(y));
   // times  that are non-NA in both vectors
@@ -51,15 +52,16 @@ corext quasi_correlation(NumericVector x, NumericVector y){
   validx = validx - mx;
   validy = validy - my;
   // compute the rho
-  double rho; // the result
-  rho = sqrt(static_cast<double>(T)) * sum(validx * validy) / sqrt(sum(pow(validx, 2)) * sum(pow(validy,2)));
+  long double rho; // the result
+  rho = sqrt(static_cast<long double>(T)) * sum(validx * validy) / sqrt(sum(pow(validx, 2)) * sum(pow(validy, 2)));
   // return the result
-  corext result = {.correlation = rho, .common = T};;
+  corext result = {.correlation = rho, .common = T};
   return(result);
 }
 
 // [[Rcpp::export]]
 NumericVector fastpcdtest_unbalanced_(NumericMatrix M, int min_common) {
+  bool TMPprint = true; // TMP for debugging
   double CD = 0; // CD statistic (the result)
   corext quasi_cor; // two vector correlation times sqrt(T) + number of common observations
   int invalid_cases = 0; // the number of invalid cases
@@ -71,9 +73,23 @@ NumericVector fastpcdtest_unbalanced_(NumericMatrix M, int min_common) {
         invalid_cases++;
       else
         CD = CD + quasi_cor.correlation;
+      // debugging print
+      if (TMPprint && is_true(any(is_na(NumericVector::create(CD))))) {
+        Rcpp::Rcout << "First nan when j = " << j << " and k = " << k << std::endl;
+        Rcpp::Rcout << "Quasi cor = " << quasi_cor.correlation << ", " << quasi_cor.common << std::endl;
+        NumericVector x = M(j, _);
+        NumericVector y = M(k, _);
+        Rcpp::Rcout << "x = " << x << std::endl;
+        Rcpp::Rcout << "y = " << y << std::endl;
+        NumericVector xx = x - sum(x) / x.length();
+        NumericVector yy = y - sum(y) / y.length();
+        Rcpp::Rcout << "upr = " << sum(pow(xx, 2)) * sum(pow(yy, 2)) << std::endl;
+        TMPprint = false;
+      }
     }
   }
   // add correction
+  Rcpp::Rcout << "Debug: CD pre manipulation " << CD << std::endl;
   CD = CD * sqrt(2.0 / (M.nrow() * (M.nrow() - 1) - 2 * invalid_cases));
   // return the result
   NumericVector result = NumericVector::create(CD, static_cast<double>(invalid_cases));
