@@ -52,7 +52,7 @@ corext quasi_correlation(NumericVector x, NumericVector y){
   validy = validy - my;
   // compute the rho
   double rho; // the result
-  rho = sqrt(static_cast<double>(T)) * sum(validx * validy) / sqrt(sum(pow(validx, 2)) * sum(pow(validy,2)));
+  rho = sqrt(static_cast<double>(T)) * sum(validx * validy) / sqrt(sum(pow(validx, 2))) * sqrt(sum(pow(validy,2)));
   // return the result
   corext result = {.correlation = rho, .common = T};;
   return(result);
